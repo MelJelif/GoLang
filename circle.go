@@ -7,7 +7,6 @@ import (
 
 func main() {
 	var a float64
-	b := math.Pi
 
 	fmt.Print("Введите площадь круга: ")
 	_, err := fmt.Scanln(&a)
@@ -15,6 +14,6 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Printf("Диаметр окружности %.2f \n", math.Sqrt(a/b)*2)
-
+	fmt.Printf("Диаметр окружности %.2f \n", math.Sqrt(a/math.Pi)*2)
+	fmt.Printf("Длина окружности : %.2f \n", (math.Sqrt(a/math.Pi)*2)*math.Pi)
 }
