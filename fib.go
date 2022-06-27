@@ -15,7 +15,7 @@ func fibfunc(rowfib fibMap, n int) int {
 }
 
 func main() {
-	var rowfib = map[int]int{0: 0, 1: 1}
+	var rowfib = fibMap{0: 0, 1: 1}
 	var n int
 	fmt.Println("Введите искомый пордковый номер числа: ")
 	_, err := fmt.Scan(&n)
