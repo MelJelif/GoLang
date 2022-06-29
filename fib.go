@@ -8,7 +8,7 @@ type fibMap = map[int]int
 
 func fibfunc(rowfib fibMap, n int) int {
 	_, found := rowfib[n]
-	if found != true {
+	if !found {
 		rowfib[n] = fibfunc(rowfib, n-1) + fibfunc(rowfib, n-2)
 	}
 	return rowfib[n]
