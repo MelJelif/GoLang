@@ -1,0 +1,47 @@
+package conf
+
+import (
+ "fmt"
+ "gopkg.in/yaml.v2"
+ "io/ioutil"
+ "net/url"
+)
+
+type Config struct {
+ Port      int    `yaml:"port"`
+ DbUrl     string `yaml:"db_url"`
+ JaegerUrl string `yaml:"jaeger_url"`
+}
+
+func New() *Config {
+ return &Config{}
+}
+
+func (c *Config) Load(configFile string) error {
+ data, err := ioutil.ReadFile(configFile)
+ if err != nil {
+  return err
+ }
+
+ err = yaml.Unmarshal(data, c)
+ if err != nil {
+  return err
+ }
+ 
+ return c.validate()
+}
+
+func (c *Config) validate() error {
+ // validate port
+ if c.Port < 1 || c.Port > 65535 {
+  return fmt.Errorf("invalid port: %d", c.Port)
+ }
+ 
+ // validate db_url
+ _, err := url.ParseRequestURI(c.DbUrl)
+ if err != nil {
+  return fmt.Errorf("invalid db_url: %s: %s", c.DbUrl, err)
+ }
+ 
+ return err
+}
